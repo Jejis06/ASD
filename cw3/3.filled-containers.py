@@ -66,6 +66,8 @@ def solution(buckets:list[Bucket], availlt:int):
 
     return curr_filled 
 
+# ------------- Ultrafast O(nlogn) ----------------
+
 
 
 # ------------- Testing and generators ----------------

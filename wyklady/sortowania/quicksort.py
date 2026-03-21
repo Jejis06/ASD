@@ -10,7 +10,11 @@ def qsort(A:list[int], p:int, r:int):
 
 # Lomuto partition function
 def lomuto_partition(A:list[int], p:int, r:int):
-    x = A[randint(p, r)]#x = A[r]
+    rind = randint(p, r)#x = A[r]
+    A[rind], A[r] = A[r], A[rind]
+
+    x = A[r]
+
     i = p - 1
     for j in range(p, r+1):
         if A[j] <= x:
