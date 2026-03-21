@@ -6,6 +6,7 @@
     - nalalismy k litrow wody i interesuje nas ile pojemnikow bedzie w pelni napelnione
 """
 
+from os import pread
 from random import randint
 
 class Bucket:
@@ -34,7 +35,7 @@ def check_level(buckets:list[Bucket], level:int) -> tuple[int, int]:
             liters_used += w * h
     return (buckets_filled, liters_used)
 
-def partition(A:list[int], low:int, high:int) -> int:
+def partition(A:list[int | tuple[int,int,int]], low:int, high:int) -> int:
     pivot = A[high]
     
     i = low - 1
@@ -44,7 +45,7 @@ def partition(A:list[int], low:int, high:int) -> int:
             A[j], A[i] = A[i], A[j]
     return i
 
-def qsort(A:list[int], low:int, high:int) -> None:
+def qsort(A:list[int| tuple[int,int,int]], low:int, high:int) -> None:
     while low < high:
         pivot = partition(A, low, high)
         qsort(A, low, pivot - 1)
@@ -67,6 +68,47 @@ def solution(buckets:list[Bucket], availlt:int):
     return curr_filled 
 
 # ------------- Ultrafast O(nlogn) ----------------
+
+
+
+START = 1
+END = -1
+
+def solution_optimized(buckets:list[Bucket], avail_liters: int) -> int:
+    events:list[tuple[int, int, int]] = []
+
+    for bucket in buckets:
+        width = abs(bucket.x1 - bucket.x0) # durex algorithm 
+        events.append((bucket.y0, START, width))
+        events.append((bucket.y1, END, width))
+
+    n = len(events)
+    events.sort() # skip pisania qs 2 razy
+
+    total_liters = 0
+    curr_width = 0
+    prev_y = events[0][0]
+
+    for i in range(len(events)):
+        y, t, width = events[i]
+
+        h_diff = y - prev_y
+        needed = h_diff * curr_width
+
+        if total_liters + needed > avail_liters: break
+
+        total_liters += needed
+        curr_width += t * width
+
+        prev_y = y
+
+    optimal_level = prev_y
+    remaining = avail_liters - total_liters
+    if curr_width > 0:
+        optimal_level += remaining / curr_width
+
+    full_buckets = sum(1 for bucket in buckets if bucket.y1 <= optimal_level)
+    return full_buckets
 
 
 
