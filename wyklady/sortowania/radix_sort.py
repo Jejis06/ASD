@@ -64,13 +64,12 @@ def radix_sort_str(A:list[str]):
 def countingsort_radixBIT(A:list[int], bit:int):
     n = len(A)
     res = [0] * n
-    cnt = [0] * 65 # zakladamy ze w maksie liczby 64 bitowe
+    cnt = [0] * 2 # zakladamy ze w maksie liczby 64 bitowe
 
     for i in range(n):
         ind = (A[i] >> bit) & 1
         cnt[ind] += 1
-    for i in range(1, 65):
-        cnt[i] += cnt[i-1]
+    cnt[1] += cnt[0]
 
     for i in range(n-1, -1, -1):
         ind = (A[i] >> bit) & 1

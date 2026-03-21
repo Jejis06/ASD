@@ -35,8 +35,7 @@ def merge(T, B, p, q, r):
         j += 1
         k += 1
 
-    for t in range(p, r):
-        T[t] = B[t]
+    T[p:r] = B[p:r]
 
 def sort_help(T, B, p, r):
     if r - p > 1:
