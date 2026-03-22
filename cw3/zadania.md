@@ -1,4 +1,4 @@
-1. Quicksort max O(logn) pamieci
+1. Quicksort max O(logn) pamieci 
 
 2. k-ty najmniejszy elem w tablicy nieposortowanej w O(n)
 
