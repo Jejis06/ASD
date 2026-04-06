@@ -1,5 +1,22 @@
 from kol1testy import runtests
 
+'''
+
+Algorytm po otrzymaniu tablicy wejsciowej tworzy jej kopie (K) z krotkami k1,k2,k3,... takimi, ze k*[0] = wartosc i-tego elementu a k*[1] = pierwotny indeks elementu.
+Nastepnie stabilnym sortowaniem mergesort sortuje tablice K rosnaco, przy okazji zwiekszajac kazdemu oryginalnemu indeksowi jego range. Dziala to tak ze kiedy mergesort dzieli
+oryginalna tablice na 2 czesci to wiemy ze elementy z prawej jej czesci beda 'dalej' w tablicy niz te z lewej, wykorzystujemy to w funkcji merge w ktorej wiemy ze jezeli wartosc 
+pewnej krotki K[j] jest wieksza od aktualnej wartosci K[i] to wszystkie wartosci od K[p...i] sa mniejsze od K[j] zatem ranga oryginalnego indeksu (K[j][1]) jest powiekszana o (i - p).
+Po zakonczeniu sie algorytmu mergesort kazdy indeks elementu z tablicy T ma juz policzona swoja range w tablicy ranks a zatem pozostaje tylko zwrocic max(ranks)
+
+Zlozonosc:
+    Tworzenie kopii tablicy: O(n)
+    Algorytm merge sort: O(nlogn)
+    max wartosc z tablicy ranks: O(n)
+
+    ostatecznie mamy: O(nlogn + 2n) -> O(nlogn)
+
+'''
+
 
 ranks = []
 
