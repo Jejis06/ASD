@@ -1,8 +1,21 @@
 from kol1testy import runtests
 
 """
-Algorytm:
+Algorytm: 
+    Program rozwiazuje zadanie z wykorzystaniem 2 kopcow (min, max) w kopcu min przechowywane jest zawsze k najwiekszych elementow z rozwazanego przedzialu, natomiast w max pozostale p-k
+    elementow. Zastosowanie 2 kopcow umozliwia nam w czasie logarytmicznym balansowac min kopiec (tj w przypadku kiedy kolejne okno nie zawiera jakiegos elementu ktory poprzednio znajdowal
+    sie w min kopcu). Liczba z_i dla danego przedzialu i poprawnie zbalansowanego min_kopca znajduje sie w min_kopiec[0][0] ( bo jest to wlasnie w zasadzie k-ta co do wielkosci liczba z danego okna).
+    Aby nie trzeba bylo tworzyc nowego min_kopca dla kazdego kolejnego okna skoro wiemy ze nowe okno dodaje nam jedna wartosc i odbiera inna musimy tylko wiedziec w ktorym kopcu usuwana wartosc sie
+    znajduje oraz do ktorego kopca ma wpadac kolejna. Usuwanie elementow dziala na zasadzie leniwego usuwania po indeksach, tj jezeli zapiszemy z kazda wartoscia jej indeks i znamy poczatek i koniec naszego
+    okna to w przypadku napotkania w headzie dowolnego z kopcow tej wartosci z tym indeksem mozemy wtedy ja usunac zamiast przeszukiwac caly kopiec i usuwac ja na bierzaco. w przypadku braku w min kopcu
+    wiemy ze do k-1 najwiekszych wartosci trzeba dodac najwieksza z p-k innych czyli head z max_kopca.
+
 Zlozonosc:
+    poczatkowe tworzenie kopcow: O(2n)
+    dodajemy zawsze maksymalnie n wartosci do jednego z kopcow: O(nlogp)
+    odejmujemy zawsze maksymalnie n wartosci z jednego z kopcow: O(nlogp)
+
+    ostatecznie : O(2n + nlogp -> nlogp -> nlogn)
 """
 
 lt = list[tuple[int,int]]
