@@ -7,6 +7,24 @@ W ogólności graf G jest skierowany, ale można najpierw wskazać algorytm dla
 grafu nieskierowanego.
 """
 
+from collections import deque
+
+graph_neighbor = list[list[tuple[int,int]]]
+
+# wagi (0,1)
+
+def find_cheapes_path(G:graph_neighbor, s:int, t:int) -> list[int]:
+    n = len(G)
+    parent:list[int] = [-1 for _ in range(n)]
+    dist:list[int]   = [ -1 for _ in range(n)]
+
+
+    q: deque[int] = deque([s])
+
+
+
+
+
 def solution():
     # TODO: Implement algorithm logic here
 

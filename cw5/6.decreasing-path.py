@@ -7,8 +7,9 @@ w której przechodzimy po krawędziach o coraz mniejszych wagach.
 
 graph_neighbor = list[list[tuple[int,int]]]
 
-def deacreasing_path(G:graph_neighbor, x:int, y:int):
 
+# O( E^2 ) -> O(V * E)
+def deacreasing_path(G:graph_neighbor, x:int, y:int) -> bool:
     n = len(G)
     vis:list[float] = [0 for _ in range(n)]
 
@@ -23,6 +24,22 @@ def deacreasing_path(G:graph_neighbor, x:int, y:int):
     vis[x] = float('inf')
     dfs(G, x, y, float('inf'))
     return vis[y] != 0
+
+
+# O(V + E)
+def decreasing_path_sorted(edges:list[tuple[int,int,int]], x:int, y:int) -> bool:
+    max_edge = max(edges, key = lambda edge: max(edge[0], edge[1]) )  # O(E)
+    n = max(max_edge[0], max_edge[1])
+
+    sorted_edges = sorted(edges, key = lambda edge: edge[2], reverse=True) # tutaj mozna zrobic pp counting sort i wtedy O(E)
+    reachable = [False] * n # O(V)
+
+    reachable[x] = True
+    for u, v, _ in sorted_edges: # O(E)
+        if reachable[u] or reachable[v]:
+            reachable[u] = True
+            reachable[v] = True
+    return reachable[y]
 
 
 def solution():
