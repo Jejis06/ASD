@@ -9,6 +9,7 @@ grafu nieskierowanego.
 
 def solution():
     # TODO: Implement algorithm logic here
+
     pass
 
 if __name__ == "__main__":
