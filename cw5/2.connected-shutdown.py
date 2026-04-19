@@ -9,9 +9,33 @@ pozostał spójny). Proszę zaproponować algorytm podający kolejność wyłąc
 stacji.
 """
 
+
+# Nalezy usuwac tylko liscie w drzewie DFS poniewaz jako najglebsze wierzcholki nie rozspojniaja grafu
+# lista sasiedztwa
+
+# O(V + E)
+
+def shutdown_ordering(G:list[list[int]]):
+    n = len(G)
+    vis:list[bool] = [False for _ in range(n)]
+    post_order:list[int] = []
+
+    def dfs(G:list[list[int]], vert:int):
+        vis[vert] = True
+        for child in G[vert]:
+            if not vis[child]:
+                dfs(G, child)
+
+        post_order.append(vert)
+
+    # zadanie sprowadza sie do zwrocenia tablicy post order
+    return post_order
+
+
+
 def solution():
-    # TODO: Implement algorithm logic here
     pass
+
 
 if __name__ == "__main__":
     solution()
