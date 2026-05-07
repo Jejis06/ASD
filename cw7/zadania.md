@@ -29,7 +29,7 @@ czyli tutaj optymalne nawiasowanie to nawiasowanie (I.)
 !!! ZWRACAMY TYLKO NAJMNIEJSZY KOSZT !!!
 
 
-3. Maxi-min 
+3. Max i min 
 Dany jest ciąg "n" liczb naturalnych, który oznaczamy jako:
 A = (a_0, a_1, ..., a_{n-1})
 oraz liczba naturalna "k".
