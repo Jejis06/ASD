@@ -1,34 +1,4 @@
-1. Najdluzszy wspolny podciag.
-szukamy taki podciag (niekoniecznie spojny) ktory znajduje sie i w A i w B 
-i jest najdluzszy mozliwy
-
-np.
-A = aabcbdadb
-B = bbaabadadb
-
-tutaj: aabcbd
-
-
-2. Mnozenie maciezy.
-mamy ciag maciezy (A1, A2, ... , An)( tak naprawde ich wymiarow ), 
-chcemy je pomnozyc {(a1, b1), (a2, b2), ... , (an, bn)} (ai = bi+1) wymiary te spelniaja 
-warunek ze mnozac je po kolei da sie to wykonac jezeli chodzi o same wymiary tych 
-macierzy. Zadanie polega na tym ze trzeba znalezc takie ulozenie nawiasow ze 
-teoretyczna ilosc operacji mnozenia jest najmniejsza.
-
-np.
-mamy wymiary macierzy A, B, C
-100x1 , 1x100, 1x1 
-
-potencjalne ulozenia nawiasow to:
-
-I.  (A x B) x C     | koszt to 100
-II.  A x (B x C)    | koszt to 200
-
-czyli tutaj optymalne nawiasowanie to nawiasowanie (I.)
-!!! ZWRACAMY TYLKO NAJMNIEJSZY KOSZT !!!
-
-
+"""
 3. Max i min 
 Dany jest ciąg "n" liczb naturalnych, który oznaczamy jako:
 A = (a_0, a_1, ..., a_{n-1})
@@ -46,7 +16,7 @@ S_2 = (a_{l_1+1}, ..., a_{l_2})
 ...
 S_k = (a_{l_{k-1}+1}, ..., a_{n-1})
 
-Każdy wyodrębniony podciąg posiada swoją wartość (zazwyczaj jest to suma jego elementów). 
+Każdy wyodrębniony podciąg posiada swoją wartość (suma jego elementów). 
 Wartość całego dokonanego podziału definiujemy jako najmniejszą z wartości tych podciągów, 
 co można zapisać wzorem:
 
@@ -57,3 +27,37 @@ Dla zadanego ciągu A oraz liczby "k", należy znaleźć taki podział na "k" sp
 dla którego wartość całego podziału będzie jak największa (maksymalna). Innymi słowy, 
 szukamy optymalnego podziału, który maksymalizuje najmniejszą wartość ze 
 wszystkich utworzonych podciągów.
+"""
+
+# O(k * n^2)
+
+def solution(nums:list[int], k:int):
+
+    n = len(nums)
+    sums = [0] * n
+
+    sums[0] = nums[0]
+    for i in range(1, n):
+        sums[i] = sums[i-1] + nums[i]
+
+    dp:list[list[int]] = [[0 for _ in range(k+1)] for _ in range(n)]
+
+    for i in range(n):
+        dp[i][1] = sums[i]
+
+    for i in range(n):
+        for j in range(2, k+1):
+
+            if j > i + 1: 
+                continue
+
+            for m in range(i):
+                dp[i][j] = max( dp[i][j], min(dp[m][j-1], sums[i] - sums[m]))
+    return dp[n-1][k]
+
+
+
+
+if __name__ == "__main__":
+#    solution()
+    pass
